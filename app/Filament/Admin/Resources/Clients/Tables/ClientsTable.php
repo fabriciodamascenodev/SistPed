@@ -16,28 +16,39 @@ class ClientsTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label('Nome')
                     ->searchable(),
                 TextColumn::make('phone')
+                    ->label('Telefone')
                     ->searchable(),
                 TextColumn::make('street')
+                    ->label('Rua')
                     ->searchable(),
                 TextColumn::make('number')
+                    ->label('Número')
                     ->searchable(),
                 TextColumn::make('complement')
+                    ->label('Complemento')
                     ->searchable(),
                 TextColumn::make('district')
+                    ->label('Bairro')
                     ->searchable(),
                 TextColumn::make('city')
+                    ->label('Cidade')
                     ->searchable(),
                 TextColumn::make('reference')
+                    ->label('Ponto de Referência')
                     ->searchable(),
                 TextColumn::make('cpf_cnpj')
+                    ->label('CPF/CNPJ')
                     ->searchable(),
                 TextColumn::make('created_at')
+                    ->label('Criado em')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('Atualizado em')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
