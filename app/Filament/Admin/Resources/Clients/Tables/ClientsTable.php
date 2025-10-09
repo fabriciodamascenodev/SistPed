@@ -41,7 +41,27 @@ class ClientsTable
                     ->searchable(),
                 TextColumn::make('cpf_cnpj')
                     ->label('CPF/CNPJ')
-                    ->searchable(),
+                    ->searchable()
+                    ->formatStateUsing(function (?string $state): ?string {
+                        if (empty($state)) {
+                            return null;
+                        }
+
+                        $cleanedState = preg_replace('/[^0-9]/', '', $state);
+
+                        // Se tiver 11 dígitos, formata como CPF
+                        if (strlen($cleanedState) === 11) {
+                            return preg_replace('/(\d{3})(\d{3})(\d{3})(\d{2})/', '$1.$2.$3-$4', $cleanedState);
+                        }
+
+                        // Se tiver 14 dígitos, formata como CNPJ
+                        if (strlen($cleanedState) === 14) {
+                            return preg_replace('/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/', '$1.$2.$3/$4-$5', $cleanedState);
+                        }
+
+                        // Se não for nenhum dos dois, retorna o valor original
+                        return $state;
+                    }),
                 TextColumn::make('created_at')
                     ->label('Criado em')
                     ->dateTime()
