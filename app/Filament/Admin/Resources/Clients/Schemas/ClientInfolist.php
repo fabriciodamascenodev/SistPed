@@ -4,6 +4,7 @@ namespace App\Filament\Admin\Resources\Clients\Schemas;
 
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
+use Filament\Support\RawJs;
 
 class ClientInfolist
 {
@@ -37,17 +38,30 @@ class ClientInfolist
                     ->placeholder('-'),
                 TextEntry::make('cpf_cnpj')
                     ->label('CPF/CNPJ')
-                    ->placeholder('-'),
-                    /*
-                TextEntry::make('created_at')
-                    ->label('Criado em')
-                    ->dateTime()
-                    ->placeholder('-'),
-                TextEntry::make('updated_at')
-                    ->label('Atualizado em')
-                    ->dateTime()
-                    ->placeholder('-'),
-                    */
+                    ->placeholder('-')
+                    ->formatStateUsing(function ($state) {
+                        if (!$state) {
+                            return '-';
+                        }
+
+                        $cleaned = preg_replace('/\D/', '', $state);
+
+                        if (strlen($cleaned) > 11) {
+                            // CNPJ
+                            return preg_replace(
+                                '/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/',
+                                '$1.$2.$3/$4-$5',
+                                $cleaned
+                            );
+                        } else {
+                            // CPF
+                            return preg_replace(
+                                '/(\d{3})(\d{3})(\d{3})(\d{2})/',
+                                '$1.$2.$3-$4',
+                                $cleaned
+                            );
+                        }
+                    }),                    
             ]);
     }
 }
