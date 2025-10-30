@@ -7,7 +7,9 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Table;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Support\Facades\Storage;
 
 class ProductsTable
 {
@@ -21,6 +23,13 @@ class ProductsTable
                 TextColumn::make('sku')
                     ->label('SKU')
                     ->searchable(),
+                ImageColumn::make('image_path')
+                    ->label('Imagem')
+                    ->defaultImageUrl(asset('images/no-image.png'))
+                    ->size(50)
+                    ->circular()
+                    ->getStateUsing(fn ($record) => $record->image_path ? 
+                        Storage::disk('public')->url($record->image_path) : null),
                 TextColumn::make('quantity')
                     ->label('Qtd.')
                     ->sortable(),

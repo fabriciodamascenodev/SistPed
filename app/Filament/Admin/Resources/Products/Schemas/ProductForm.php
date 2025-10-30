@@ -2,10 +2,12 @@
 
 namespace App\Filament\Admin\Resources\Products\Schemas;
 
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema; 
 use Filament\Support\RawJs; 
+use Illuminate\Support\Facades\Storage;
 
 class ProductForm
 {
@@ -20,6 +22,21 @@ class ProductForm
                 Textarea::make('description')
                     ->label('Descrição')
                     ->maxLength(65535),
+                FileUpload::make('image_path')
+                    ->label('Imagem do Produto')
+                    ->image()
+                    ->imageEditor()
+                    ->imageEditorAspectRatios([
+                        '16:9',
+                        '4:3',
+                        '1:1',
+                    ])
+                    ->directory('products')
+                    ->visibility('public')
+                    ->acceptedFileTypes(['image/jpeg', 'image/jpg', 'image/png'])
+                    ->maxSize(2048) // 2MB
+                    ->helperText('Formatos aceitos: JPG, JPEG, PNG. Tamanho máximo: 2MB.')
+                    ->columnSpanFull(),
                 TextInput::make('quantity')
                     ->label('Quantidade')                    
                     ->numeric()
