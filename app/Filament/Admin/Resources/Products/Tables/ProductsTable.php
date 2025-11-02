@@ -25,11 +25,10 @@ class ProductsTable
                     ->searchable(),
                 ImageColumn::make('image_path')
                     ->label('Imagem')
-                    ->defaultImageUrl(asset('images/no-image.png'))
-                    ->size(50)
-                    ->circular()
-                    ->getStateUsing(fn ($record) => $record->image_path ? 
-                        Storage::disk('public')->url($record->image_path) : null),
+                    ->disk('public') // usa o disco público
+                    ->size(60)
+                    ->square()
+                    ->defaultImageUrl(asset('images/no-image.png')),
                 TextColumn::make('quantity')
                     ->label('Qtd.')
                     ->sortable(),

@@ -27,10 +27,10 @@ class ProductForm
                     ->image()
                     ->imageEditor()
                     ->imageEditorAspectRatios([
-                        '16:9',
-                        '4:3',
-                        '1:1',
-                    ])
+                         '16:9',
+                         '4:3',
+                         '1:1',
+                     ])
                     ->directory('products')
                     ->visibility('public')
                     ->acceptedFileTypes(['image/jpeg', 'image/jpg', 'image/png'])

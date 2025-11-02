@@ -17,10 +17,10 @@ class ProductInfolist
                 TextEntry::make('description')->label('Descrição'),
                 ImageEntry::make('image_path')
                     ->label('Imagem')
-                    ->defaultImageUrl(asset('images/no-image.png'))
+                    ->disk('public')
+                    ->defaultImageUrl(asset('images/no-image.jpg'))
                     ->size(200)
-                    ->columnSpanFull()
-                    ->getStateUsing(fn ($record) => $record->image_path ? Storage::disk('public')->url($record->image_path) : null),
+                    ->columnSpanFull(),
                 TextEntry::make('quantity')->label('Quantidade'),
                 TextEntry::make('sku')->label('SKU'),
                 TextEntry::make('barcode')->label('Código de Barras'),
