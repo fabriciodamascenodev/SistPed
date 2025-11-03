@@ -23,25 +23,39 @@ class ClientForm
                     ->mask('(99)99999-9999')
                     ->required()
                     ->maxlength(14),
+                TextInput::make('cep')
+                    ->label('CEP')
+                    ->mask('99999-999')
+                    ->placeholder('00000-000'),                
                 TextInput::make('street')
                     ->label('Rua')
+                    ->required()
                     ->minLength(3)
                     ->maxlength(255),
                 TextInput::make('number')
                     ->label('Número')
-                    ->maxlength(3),
+                    ->required()
+                    ->minLength(1)
+                    ->maxlength(4),
                 TextInput::make('complement')
                     ->label('Complemento')
                     ->minLength(3)
                     ->maxlength(255),
-                TextInput::make('city')
-                    ->label('Cidade')
-                    ->minLength(3)
-                    ->maxlength(255),
                 TextInput::make('district')
                     ->label('Bairro')
+                    ->required()
                     ->minLength(3)
                     ->maxlength(255),
+                TextInput::make('city')
+                    ->label('Cidade')
+                    ->required()
+                    ->minLength(3)
+                    ->maxlength(255),
+                TextInput::make('state')
+                    ->label('Estado (Sigla)')
+                    ->required() 
+                    ->length(2)  
+                    ->placeholder('RJ'),
                 TextInput::make('reference')
                     ->label('Ponto de Referência')
                     ->minLength(3)

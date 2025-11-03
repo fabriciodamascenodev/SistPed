@@ -17,11 +17,13 @@ class Client extends Model
     protected $fillable = [
         'name',
         'phone',
+        'cep',
         'street',
         'number',
         'complement',
         'district',
         'city',
+        'state',
         'reference',
         'cpf_cnpj',
     ];
