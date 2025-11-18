@@ -110,6 +110,7 @@ class CompanySettingForm
                     ->length(2)
                     ->placeholder('RJ')
                     ->maxLength(2)
-                    ]);                  
+                    ])
+            ->columns(2);                 
    }
 }

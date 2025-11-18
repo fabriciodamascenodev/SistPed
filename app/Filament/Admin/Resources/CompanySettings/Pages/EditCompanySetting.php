@@ -13,8 +13,15 @@ class EditCompanySetting extends EditRecord
 
     public function mount(int | string $record = null): void
     {
-        // Sempre usa o registro ID=1 (ou cria vazio se não existir)
-        $this->record = CompanySetting::find(1) ?? new CompanySetting(['id' => 1]);
+        $this->record = CompanySetting::firstOrCreate(['id' => 1], [
+            'company_name' => '',
+            'cnpj' => '',
+            'phone' => '',
+            'address' => '',
+            'district' => '',
+            'city' => '',
+            'state' => '',
+        ]);
 
         $this->fillForm();
     }
@@ -26,7 +33,6 @@ class EditCompanySetting extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        // Limpa CNPJ e CEP antes de salvar
         if (isset($data['cnpj'])) {
             $data['cnpj'] = preg_replace('/\D/', '', $data['cnpj']);
         }
@@ -42,12 +48,12 @@ class EditCompanySetting extends EditRecord
     {
         return Notification::make()
             ->success()
-            ->title('Configurações salvas')
-            ->body('As configurações da empresa foram salvas com sucesso.');
+            ->title('Salvo com sucesso!')
+            ->body('As configurações foram salvas.');
     }
 
     protected function getRedirectUrl(): ?string
     {
-        return null; // Fica na mesma página
+        return null;
     }
 }
