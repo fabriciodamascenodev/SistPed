@@ -2,10 +2,12 @@
 
 namespace App\Filament\Admin\Resources\Orders\Tables;
 
+use App\Models\Order;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -71,6 +73,15 @@ class OrdersTable
             ->filters([])
             ->recordActions([
                 EditAction::make(),
+                
+                Action::make('pdf')
+                    ->label('Imprimir')
+                    ->icon('heroicon-o-printer')
+                    ->color('info')
+                    ->url(fn (Order $record) => route('order.pdf', $record))
+                    ->openUrlInNewTab(),
+                    
+                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
